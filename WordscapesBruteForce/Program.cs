@@ -13,40 +13,46 @@ namespace WordscapesBruteForce
         {
             try
             {
-                Helpers.LoadQuestions1(out letters, out minWordSize);
+                while (true)
+                {
 
-                Helpers.StopWatch.Start();
-                Helpers.StartHeavyWorkWithPermutations(out validWords, letters, minWordSize);
-                Helpers.StopWatch.Stop();
+                    Helpers.LoadQuestions1(out letters, out minWordSize);
+                    Helpers.StopWatch.Restart();
+                    Helpers.StartHeavyWorkWithPermutations(out validWords, letters, minWordSize);
+                    Helpers.StopWatch.Stop();
 
-                if (validWords.Count > 0)
-                    while (true)
+                    if (validWords.Count > 0)
                     {
-                        var hints = Helpers.LoadQuestions2(validWords);
-                        if (hints.Length == 0)
+                        while (true)
                         {
-                            var key = Helpers.LoadQuestions3();
-                            if (key.Key == ConsoleKey.S)
+                            var hints = Helpers.LoadQuestions2(validWords);
+                            if (hints.Length == 0)
                             {
-                                Console.Clear();
-                                Helpers.StopWatch.Start();
-                                Helpers.StartHeavyWorkWithPermutations(out validWords, string.Join("", letters.Shuffle()), minWordSize);
-                                Helpers.StopWatch.Stop();
-                            }
-                            else if (key.Key == ConsoleKey.N)
-                            {
-                                letters = "";
-                                Helpers.LoadQuestions1(out letters, out minWordSize);
-                            }
+                                var key = Helpers.LoadQuestions3();
+                                if (key.Key == ConsoleKey.S)
+                                {
+                                    Console.Clear();
+                                    Helpers.StopWatch.Start();
+                                    Helpers.StartHeavyWorkWithPermutations(out validWords, string.Join("", letters.Shuffle()), minWordSize);
+                                    Helpers.StopWatch.Stop();
+                                }
+                                else if (key.Key == ConsoleKey.N)
+                                {
+                                    letters = string.Empty;
+                                    break;
+                                }
 
-                            Helpers.LoadQuestions4(validWords);
+                                Helpers.LoadQuestions4(validWords);
+                            }
                         }
                     }
+                }
             }
             finally
             {
                 Console.ResetColor();
             }
+
         }
     }
 }
