@@ -32,7 +32,7 @@ namespace WordscapesBruteForce
                                 if (key.Key == ConsoleKey.S)
                                 {
                                     Console.Clear();
-                                    Helpers.StopWatch.Start();
+                                    Helpers.StopWatch.Restart();
                                     Helpers.StartHeavyWorkWithPermutations(out validWords, string.Join("", letters.Shuffle()), minWordSize);
                                     Helpers.StopWatch.Stop();
                                 }

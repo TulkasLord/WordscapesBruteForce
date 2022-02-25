@@ -143,7 +143,7 @@ namespace WordscapesBruteForce
             int length = 0;
 
             Console.WriteLine();
-            Console.Write("Find words with the same length, type the number and press Enter");
+            Console.Write("Find words with the same length, type the number and press Enter: ");
             string val = Console.ReadLine();
 
             if (!string.IsNullOrEmpty(val))
