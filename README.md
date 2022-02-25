@@ -14,7 +14,7 @@ This project help me to tackle most of the games (like: Wordscapes, WordConnect,
 
 ### e.g: 
 The letters ``h``, ``o``, ``m`` and ``e`` (or ``home``) have 48 permutations 
-with diferent lengths, let's say 3 as minimun length per word.
+with different lengths, let's say 3 as minimun length per word.
 
 ``hom; hoe; hme; ome; home; hem; oem; hoem; hmo; moe; hmoe; heo; meo; hmeo; emo; 
 hemo; eom; heom; ohm; ohe; ohme; ohem; omh; mhe; omhe; oeh; meh; omeh; emh; oemh; 
@@ -26,12 +26,12 @@ but only 2 are real word dictionary!!
 ``home`` and ``hoe`` 😃
 
 ## The overall logic, nothing fancy ...
-A little of the basics of Combinatorial knowlage, some MIT code (🥇) ... and voila! Start it with permutations with variable size and sending those permutations as requests to custom APIs, HTML, etc... to guarantee the existence of the real dictionary word and then save it in an local cache (JSON file) to avoid hitting too much Internet next time, acting as my first pool before do any request. The word "home" still a word in my hard drive locally or out there in the Library of Congress API (if any) 😄
+A little of the basics of Combinatorial knowledge, some MIT code (🥇) ... and voila! Start with permutations with variable size and send those permutations as request to custom APIs, HTML, etc... to guarantee the existence of the real dictionary word and then save it in an local cache (JSON file) to avoid hitting too much Internet next time, acting as my first pool before doing any request. The word "home" still a word in my hard drive locally or out there in the Library of Congress API (if any) 😄
 
 Using multi-threaded parallel (TPL) techniques with batch processing techniques, lazy loading, I guarantee that you can make thousands of simulated calls.
 
 ## Rights & Permission about this code ... NONE!
-This is free and **AS IS** you are resposible to help your self and to do what you think is best... just make sure that it's better than the previous version  and share with others. 
+This is free and **AS IS** you are resposible to help yourself and to do what you think is best... just make sure that it's better than the previous version  and share with others. 
 
 ### and ...
 Don't worry I'm NOT going to ask for ☕ I learn how to code one! 😄
