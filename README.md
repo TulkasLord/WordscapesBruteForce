@@ -30,7 +30,7 @@ A little of the basics of Combinatorial knowledge, some MIT code (🥇) ... and 
 
 Using multi-threaded parallel (TPL) techniques with batch processing techniques, lazy loading, I guarantee that you can make thousands of simulated calls.
 
-## Rights & Permission about this code ... NONE!
+## Rights & Permissions about this code ... NONE!
 This is free and **AS IS** you are resposible to help yourself and to do what you think is best... just make sure that it's better than the previous version  and share with others. 
 
 ### and ...
