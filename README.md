@@ -28,7 +28,7 @@ but only 2 are real word dictionary!!
 ## The overall logic, nothing fancy ...
 A little of the basics of Combinatorial knowlage, some MIT code (🥇) ... and voila! Start it with permutations with variable size and sending those permutations as requests to custom APIs, HTML, etc... to guarantee the existence of the real dictionary word and then save it in an local cache (JSON file) to avoid hitting too much Internet next time, acting as my first pool before do any request. The word "home" still a word in my hard drive locally or out there in the Library of Congress API (if any) 😄
 
-Using multi-threaded pararelo (TPL) techniques with batch processing techniques, lazy loading, I guarantee that you can make thousands of simulated calls.
+Using multi-threaded parallel (TPL) techniques with batch processing techniques, lazy loading, I guarantee that you can make thousands of simulated calls.
 
 ## Rights/permission about this code ... NONE!
 This is free and "AS IS" you are resposible to help your self and to do what you think is best... just make sure that it's better than the previous version  and share with others. 
