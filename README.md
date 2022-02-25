@@ -1,5 +1,5 @@
 # Wordscapes Brute Force - A fun project!!
-Wordscapes Brute Force
+Wordscapes Brute Force - (bot 🤖)
 
 A fun project indeed!. 
 This project help me to tackle most of the games (like: Wordscapes, WordConnect, WordCookies, etc...) with challenging words.
