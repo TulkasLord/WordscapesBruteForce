@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace WordscapesBruteForce
 {
@@ -8,43 +9,39 @@ namespace WordscapesBruteForce
         private static int minWordSize = 2;
         private static string letters = string.Empty;
         private static List<string> validWords = new List<string>();
+        private static List<string> popularWords = new List<string>();
 
         static void Main(string[] args)
         {
             try
             {
+                Helpers.Init(out popularWords);
+                Helpers.Q1(out letters, out minWordSize);
+                Console.Clear();
+                Helpers.StopWatch.Restart();
+                Helpers.StartHeavyWorkWithPermutations(out validWords, letters, minWordSize);
+                Helpers.StopWatch.Stop();
+
                 while (true)
                 {
 
-                    Helpers.LoadQuestions1(out letters, out minWordSize);
-                    Helpers.StopWatch.Restart();
-                    Helpers.StartHeavyWorkWithPermutations(out validWords, letters, minWordSize);
-                    Helpers.StopWatch.Stop();
-
                     if (validWords.Count > 0)
                     {
-                        while (true)
+                        if (!ConsoleMenu.SelectionMenu(letters, minWordSize, popularWords, ref validWords))
                         {
-                            var hints = Helpers.LoadQuestions2(validWords);
-                            if (hints.Length == 0)
-                            {
-                                var key = Helpers.LoadQuestions3();
-                                if (key.Key == ConsoleKey.S)
-                                {
-                                    Console.Clear();
-                                    Helpers.StopWatch.Restart();
-                                    Helpers.StartHeavyWorkWithPermutations(out validWords, string.Join("", letters.Shuffle()), minWordSize);
-                                    Helpers.StopWatch.Stop();
-                                }
-                                else if (key.Key == ConsoleKey.N)
-                                {
-                                    letters = string.Empty;
-                                    break;
-                                }
-
-                                Helpers.LoadQuestions4(validWords);
-                            }
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Invalid selection. Try again.");
+                            Console.ResetColor();
+                            continue;
                         }
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Nothing found!");
+                        Console.ResetColor();
+                        Thread.Sleep(1000);
                     }
                 }
             }
