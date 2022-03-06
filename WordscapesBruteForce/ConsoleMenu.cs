@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace WordscapesBruteForce
 {
     internal class ConsoleMenu
     {
-        internal static bool SelectionMenu(string letters, int minWordSize, List<string> popularWords, ref List<string> validWords)
+        internal static bool SelectionMenu(ref string letters, ref string originalLetters, int minWordSize, List<string> popularWords, ref List<string> validWords)
         {
             bool validSelection = true;
-
             ShowMenu();
 
-            switch (Console.ReadKey().Key)
+            var key = Console.ReadKey(true).Key;
+            Console.Write(key.ToString().ToUpper());
+            switch (key)
             {
                 case ConsoleKey.H:
                     Console.WriteLine();
@@ -24,15 +24,17 @@ namespace WordscapesBruteForce
 
                     // clean
                     validWords = new List<string>();
-                    letters = string.Empty;
                     minWordSize = 2;
+                    popularWords = new List<string>();
+                    letters = string.Empty;
+                    originalLetters = string.Empty;
 
                     // try again
-                    Helpers.Q1(out letters, out minWordSize);
+                    Helpers.Q1(out letters, out originalLetters, out minWordSize);
                     Console.WriteLine();
                     Console.Clear();
                     Helpers.StopWatch.Restart();
-                    Helpers.StartHeavyWorkWithPermutations(out validWords, letters, minWordSize);
+                    Helpers.StartHeavyWorkWithPermutations(out validWords, letters, originalLetters, minWordSize);
                     Helpers.StopWatch.Stop();
                     break;
 
@@ -40,7 +42,7 @@ namespace WordscapesBruteForce
                     Console.WriteLine();
                     Console.Clear();
                     Helpers.StopWatch.Restart();
-                    Helpers.StartHeavyWorkWithPermutations(out validWords, string.Join("", letters.Shuffle()), minWordSize);
+                    Helpers.StartHeavyWorkWithPermutations(out validWords, string.Join("", letters.Shuffle()), originalLetters, minWordSize);
                     Helpers.StopWatch.Stop();
                     break;
 
@@ -65,6 +67,7 @@ namespace WordscapesBruteForce
                     break;
             }
 
+            Console.WriteLine();
             return validSelection;
         }
 
@@ -149,7 +152,7 @@ namespace WordscapesBruteForce
                     else
                         continue;
 
-                    if (length == 0)
+                    if (length == 0 && !mapping.ContainsKey(intValue))
                         mapping.Add(intValue, letter);
                 }
 
@@ -157,7 +160,14 @@ namespace WordscapesBruteForce
                 foreach (var mapped in mapping)
                 {
                     int idx = mapped.Key - 1;
-                    var matches = validWords.Where(x => x.Length > idx && x.IndexOf(mapped.Value, idx) == idx && (length == 0 ? true : x.Length == length));
+                    List<string> matches = new List<string>();
+                    if (idx >= 0)
+                    {
+                        matches = validWords.Where(x => (x.Length > idx)
+                                                && (x.IndexOf(mapped.Value, idx) == idx)
+                                                && (length == 0 ? true : x.Length == length))?.ToList();
+                    }
+
                     if (matches.Count() > 0)
                         filtered.AddRange(matches);
                 }
@@ -176,7 +186,7 @@ namespace WordscapesBruteForce
                 {
                     Console.WriteLine($"Try this:");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(string.Join(", ", filtered));
+                    Console.WriteLine(string.Join(", ", filtered.OrderBy(o => { return o; })));
                 }
                 else
                 {
@@ -187,14 +197,14 @@ namespace WordscapesBruteForce
                 Console.ResetColor();
             }
 
-            Console.WriteLine(hints);
+            Console.WriteLine(hints.OrderBy(o => { return o; }));
         }
 
         internal static void P(List<string> validWords, List<string> popularWords)
         {
             var matches = validWords.Where(x => popularWords.Contains(x)).ToList();
             if (matches.Count > 0)
-                Helpers.AddWordsHorizontallyToConsole(matches);
+                Helpers.AddWordsHorizontallyToConsole(matches.OrderBy(o => { return o; }).ToList());
             else
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -205,7 +215,7 @@ namespace WordscapesBruteForce
 
         internal static void L(List<string> validWords)
         {
-            Helpers.AddWordsHorizontallyToConsole(validWords);
+            Helpers.AddWordsHorizontallyToConsole(validWords.OrderBy(o => { return o; }).ToList());
         }
 
         internal static void F(List<string> validWords, string value)
@@ -222,7 +232,7 @@ namespace WordscapesBruteForce
             if (filtered.Any())
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine(string.Join(", ", filtered));
+                Console.WriteLine(string.Join(", ", filtered.OrderBy(o => { return o; })));
             }
             else
             {

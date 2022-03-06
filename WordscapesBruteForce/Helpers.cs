@@ -28,9 +28,9 @@ namespace WordscapesBruteForce
                 .ToList();
         }
 
-        internal static void StartHeavyWorkWithPermutations(out List<string> validWords, string letters, int minWordSize)
+        internal static void StartHeavyWorkWithPermutations(out List<string> validWords, string letters, string originalLetters, int minWordSize)
         {
-            var res = GetPermutations(letters, minWordSize, letters.Length);
+            var res = GetPermutations(letters, originalLetters, minWordSize, letters.Length);
             Console.WriteLine();
 
             // Load content from Local Dictionary with real words
@@ -61,14 +61,18 @@ namespace WordscapesBruteForce
             Console.WriteLine();
         }
 
-        internal static List<string> GetPermutations(string letters, int minWordSize = 2, int size = 6)
+        internal static List<string> GetPermutations(string letters, string originalLetters, int minWordSize = 2, int size = 6)
         {
             var permutations = letters.ToCharArray().GetPermutations();
             var res = new List<string>();
 
+            string message = !string.IsNullOrEmpty(originalLetters) && letters != originalLetters
+                ? $"{originalLetters} => {letters}"
+                : letters;
+
             Console.SetCursorPosition((Console.WindowWidth / 2) - 5, 0);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($"'{letters}'");
+            Console.Write($"'{message}'");
             Console.ResetColor();
 
             for (int i = 0; i < permutations.Count(); i++)
@@ -119,7 +123,7 @@ namespace WordscapesBruteForce
 
         }
 
-        internal static void Q1(out string letters, out int minWordSize)
+        internal static void Q1(out string letters, out string originalLetters, out int minWordSize)
         {
             letters = string.Empty;
 
@@ -128,7 +132,7 @@ namespace WordscapesBruteForce
             letters = Console.ReadLine();
             if (string.IsNullOrEmpty(letters))
             {
-                Q1(out letters, out minWordSize); // try again 
+                Q1(out letters, out originalLetters, out minWordSize); // try again 
                 return;
             }
 
@@ -138,7 +142,7 @@ namespace WordscapesBruteForce
                 Console.WriteLine("Only letters are allowed.");
                 Console.ResetColor();
                 Thread.Sleep(1000);
-                Q1(out letters, out minWordSize); // try again
+                Q1(out letters, out originalLetters, out minWordSize); // try again
                 return;
             }
 
@@ -170,6 +174,18 @@ namespace WordscapesBruteForce
             Console.ForegroundColor = ConsoleColor.White;
             Console.ReadKey();
             Console.Clear();
+
+            originalLetters = letters;
+        }
+
+        internal static void Start(out List<string> popularWords, out string letters, out string originalLetters, out int minWordSize, out List<string> validWords)
+        {
+            Init(out popularWords);
+            Q1(out letters, out originalLetters, out minWordSize);
+            Console.Clear();
+            StopWatch.Restart();
+            StartHeavyWorkWithPermutations(out validWords, letters, originalLetters, minWordSize);
+            StopWatch.Stop();
         }
 
         #endregion
