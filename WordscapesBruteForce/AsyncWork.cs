@@ -16,7 +16,7 @@ namespace WordscapesBruteForce
         private static int realWordIndex = 0;
         #endregion
 
-        #region Methods
+        #region Async Methods
         internal static async Task<IEnumerable<string>> GetRealWords(IEnumerable<string> words, List<WordDictionaryModel> localDictionary)
         {
             // some cleansing
@@ -42,7 +42,7 @@ namespace WordscapesBruteForce
             {
                 var w = words.Skip(i * batchSize).Take(batchSize);
                 tasks.Add(GetRealWords(w, localDictionary));
-            }
+            };
 
             return (await Task.WhenAll(tasks)).SelectMany(u => u);
         }
@@ -52,6 +52,7 @@ namespace WordscapesBruteForce
             bool foundIt = false;
             bool isAPI = false;
             string source = string.Empty;
+            ConsoleColor sourceColor;
             HttpWebRequest httpRequest;
             WebResponse httpResponse = null;
 
@@ -63,6 +64,7 @@ namespace WordscapesBruteForce
                     Stream stream = null;
                     isAPI = url.StartsWith("https://api.");
                     source = isAPI ? "(API)" : "(HTML)";
+                    sourceColor = isAPI ? ConsoleColor.Magenta : ConsoleColor.Cyan;
 
                     try
                     {
@@ -106,7 +108,11 @@ namespace WordscapesBruteForce
                                     throw new WebException($"(WIKI) - Word: {word}, excluded. Can't be found on english");
 
                                 Interlocked.Increment(ref realWordIndex);
-                                Helpers.AddWordsToConsole(word, source, $"({realWordIndex.ToString("D3")})");
+                                Helpers.AddWordsToConsole(word, ConsoleColor.Green, 
+                                    source, sourceColor,
+                                    prefix: $"({realWordIndex.ToString("D3")})");
+
+                                await Task.Delay(100);
 
                                 // We found the word in at least one source.
                                 foundIt = true;
@@ -126,7 +132,9 @@ namespace WordscapesBruteForce
                 source = "(LOCAL)";
 
                 Interlocked.Increment(ref realWordIndex);
-                Helpers.AddWordsToConsole(word, source, $"({realWordIndex.ToString("D3")})");
+                Helpers.AddWordsToConsole(word, ConsoleColor.Green, 
+                    source, ConsoleColor.Yellow,
+                    prefix: $"({realWordIndex.ToString("D3")})");
 
                 // We found the word in at least one source.
                 foundIt = true;

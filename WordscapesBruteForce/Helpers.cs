@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace WordscapesBruteForce
 {
@@ -32,6 +33,7 @@ namespace WordscapesBruteForce
         {
             var res = GetPermutations(letters, originalLetters, minWordSize, letters.Length);
             Console.WriteLine();
+            Console.WriteLine("Fetching real words ...");
 
             // Load content from Local Dictionary with real words
             List<WordDictionaryModel> localDictionary = null;
@@ -58,6 +60,9 @@ namespace WordscapesBruteForce
             }
 
             Console.ResetColor();
+            if (validWords.Count > 0)
+                Console.WriteLine($"A total of {validWords.Count} real words were found.");
+
             Console.WriteLine();
         }
 
@@ -67,7 +72,7 @@ namespace WordscapesBruteForce
             var res = new List<string>();
 
             string message = !string.IsNullOrEmpty(originalLetters) && letters != originalLetters
-                ? $"{originalLetters} => {letters}"
+                ? $"{originalLetters} => {letters}. ({minWordSize})"
                 : letters;
 
             Console.SetCursorPosition((Console.WindowWidth / 2) - 5, 0);
@@ -101,17 +106,26 @@ namespace WordscapesBruteForce
         internal static void AddWordsHorizontallyToConsole(List<string> words, int width = 10)
         {
             for (int i = 0; i < words.Count; i++)
-                AddWordsToConsole(words[i], "]", "[", false, i == 0 ? true : (i % width) != 0);
-
+            {
+                AddWordsToConsole(words[i], ConsoleColor.Green,
+                    comments: "]", ConsoleColor.Green,
+                    prefix: "[", ConsoleColor.Green,
+                    showHeaderLine: false,
+                    inline: (i == 0 || i == words.Count - 1) ? true : (i % width) != 0); // exclude boundaries 
+            }
         }
 
-        internal static void AddWordsToConsole(string word, string comments = "", string prefix = "", bool showHeaderLine = true, bool inline = false)
+        internal static void AddWordsToConsole(string word, ConsoleColor wordColor,
+            string comments = "",
+            ConsoleColor? commentsColor = null,
+            string prefix = "",
+            ConsoleColor? prefixColor = null,
+            bool showHeaderLine = true,
+            bool inline = false)
         {
             string headerLine = showHeaderLine
                 ? $"[{StopWatch.Elapsed.ToString(@"hh\:mm\:ss\.fff")}]"
                 : string.Empty;
-
-            Console.ForegroundColor = ConsoleColor.Green;
 
             if (!inline)
             {
@@ -121,71 +135,38 @@ namespace WordscapesBruteForce
             else
                 Console.Write($"{headerLine} {prefix} {word} {comments}".PadLeft(3).PadRight(3));
 
+            //Console.SetCursorPosition(0, Console.CursorTop);
+            //TextConsoleColoring($"{headerLine}", ConsoleColor.White);
+            //
+            //Console.SetCursorPosition(20, Console.CursorTop);
+            //TextConsoleColoring($" {prefix}", prefixColor ?? ConsoleColor.White);
+            //
+            //Console.SetCursorPosition(30, Console.CursorTop);
+            //TextConsoleColoring($" {word}", wordColor);
+            //
+            //Console.SetCursorPosition(40, Console.CursorTop);
+            //TextConsoleColoring($" {comments}", commentsColor ?? ConsoleColor.White);
+            //
+            //Console.WriteLine();
         }
 
-        internal static void Q1(out string letters, out string originalLetters, out int minWordSize)
-        {
-            letters = string.Empty;
-
-            Console.Clear();
-            Console.Write("Give me some letters: ");
-            letters = Console.ReadLine();
-            if (string.IsNullOrEmpty(letters))
-            {
-                Q1(out letters, out originalLetters, out minWordSize); // try again 
-                return;
-            }
-
-            if (letters.Any(a => !char.IsLetter(a)))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Only letters are allowed.");
-                Console.ResetColor();
-                Thread.Sleep(1000);
-                Q1(out letters, out originalLetters, out minWordSize); // try again
-                return;
-            }
-
-            Console.Write("Min. of letters per word (default is 2): ");
-            string min = Console.ReadLine();
-            if (!string.IsNullOrEmpty(min))
-            {
-                int.TryParse(min, out minWordSize);
-            }
-            else
-            {
-                minWordSize = 2;
-            }
-
-            Console.WriteLine();
-            Console.WriteLine("All set!.");
-            Console.Write($"We are about to generate words from this set of letters:");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($" '{letters}'");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write($"The new words generated will have min. lenght of");
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write($" '{minWordSize}'");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("press any key to continue ...");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.ReadKey();
-            Console.Clear();
-
-            originalLetters = letters;
-        }
-
-        internal static void Start(out List<string> popularWords, out string letters, out string originalLetters, out int minWordSize, out List<string> validWords)
+        internal static void Start(out List<string> popularWords, out string letters, out string originalLetters, out int minWordSize,
+            out List<string> validWords,
+            out ConsoleKey? continueOption)
         {
             Init(out popularWords);
-            Q1(out letters, out originalLetters, out minWordSize);
+            ConsoleMenu.Q1(out letters, out originalLetters, out minWordSize, out continueOption);
             Console.Clear();
             StopWatch.Restart();
             StartHeavyWorkWithPermutations(out validWords, letters, originalLetters, minWordSize);
             StopWatch.Stop();
+        }
+
+        private static void TextConsoleColoring(string text, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(text);
+            Console.ResetColor();
         }
 
         #endregion
