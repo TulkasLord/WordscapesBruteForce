@@ -1,7 +1,8 @@
 # Wordscapes Brute Force - A fun project!!
 Wordscapes Brute Force - (bot 🤖)
 
-![GitHub Release](https://img.shields.io/github/v/release/TulkasLord/WordscapesBruteForce?include_prereleases)
+![GitHub Release](https://img.shields.io/github/v/release/TulkasLord/WordscapesBruteForce?include_prereleases&display_name=tag&label=Pre-Release)  
+![GitHub Release](https://img.shields.io/github/v/release/TulkasLord/WordscapesBruteForce?display_name=tag&label=Release)
 
 A fun project indeed!. 
 This project help me to tackle most of the games (like: Wordscapes, WordConnect, WordCookies, etc...) with challenging words.
