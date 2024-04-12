@@ -8,7 +8,7 @@ It's a fun project indeed!
 This project helps me tackle most games (like Wordscapes, WordConnect, WordCookies, etc...) with challenging words.
 
 ## In a nutshell ... 
-**WordscapesBruteForce**, is just a simple .NET Core console App. written on C#. The App. searches through all the possible permutations from a given random letters and find a 
+**WordscapesBruteForce**, is just a simple .NET Core console App. written on C#. The App. searches through all the possible permutations from a given random letter and finds a 
 *real* word from the dictionary (English for now!).
 
 ## The fun starts here with a simple question ...
