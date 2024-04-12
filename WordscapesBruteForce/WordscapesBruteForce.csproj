@@ -25,8 +25,4 @@
     </None>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="REM IF EXIST &quot;$(OutDir)dictionary.json&quot; (&#xD;&#xA;REM xcopy /y /u /d &quot;$(OutDir)dictionary.json&quot; &quot;$(ProjectDir)dictionary.json&quot;&#xD;&#xA;REM )" />
-  </Target>
-
 </Project>
