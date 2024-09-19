@@ -9,11 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{147839A8-45C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Console", "Console", "{C1ABA9EA-E310-448A-8A4D-2EDA32D96D12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordscapesBruteForce.Domain", "WordscapesBruteForce.api\WordscapesBruteForce.Domain\WordscapesBruteForce.Domain.csproj", "{FE7491EE-F5BD-438D-A684-BC44F834DCDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordscapesBruteForce.Domain", "WordscapesBruteForce.api\WordscapesBruteForce.Domain\WordscapesBruteForce.Domain.csproj", "{FE7491EE-F5BD-438D-A684-BC44F834DCDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordscapesBruteForce.IoC", "WordscapesBruteForce.api\WordscapesBruteForce.IoC\WordscapesBruteForce.IoC.csproj", "{A148754D-6ED7-4CD4-B6B6-DB5B1DD5A8F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordscapesBruteForce.IoC", "WordscapesBruteForce.api\WordscapesBruteForce.IoC\WordscapesBruteForce.IoC.csproj", "{A148754D-6ED7-4CD4-B6B6-DB5B1DD5A8F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordscapesBruteForce.Application", "WordscapesBruteForce.api\WordscapesBruteForce.Application\WordscapesBruteForce.Application.csproj", "{C667C81D-40E2-4A72-BB3A-D4A6763D2D45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WordscapesBruteForce.Application", "WordscapesBruteForce.api\WordscapesBruteForce.Application\WordscapesBruteForce.Application.csproj", "{C667C81D-40E2-4A72-BB3A-D4A6763D2D45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordscapesBruteForce.Api", "WordscapesBruteForce.api\WordscapesBruteForce.Api\WordscapesBruteForce.Api.csproj", "{AFD83968-7D60-491C-869A-4A28E0E8BD3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{C667C81D-40E2-4A72-BB3A-D4A6763D2D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C667C81D-40E2-4A72-BB3A-D4A6763D2D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C667C81D-40E2-4A72-BB3A-D4A6763D2D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFD83968-7D60-491C-869A-4A28E0E8BD3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD83968-7D60-491C-869A-4A28E0E8BD3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD83968-7D60-491C-869A-4A28E0E8BD3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFD83968-7D60-491C-869A-4A28E0E8BD3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,7 +51,8 @@ Global
 		{2AECB6D4-C85B-42D2-B06A-7218B0FAE6EF} = {C1ABA9EA-E310-448A-8A4D-2EDA32D96D12}
 		{FE7491EE-F5BD-438D-A684-BC44F834DCDB} = {147839A8-45C6-4EF7-A38A-4BC0377A8A9D}
 		{A148754D-6ED7-4CD4-B6B6-DB5B1DD5A8F7} = {147839A8-45C6-4EF7-A38A-4BC0377A8A9D}
-		{C667C81D-40E2-4A72-BB3A-D4A6763D2D45} = {147839A8-45C6-4EF7-A38A-4BC0377A8A9D}
+		{C667C81D-40E2-4A72-BB3A-D4A6763D2D45} = {C1ABA9EA-E310-448A-8A4D-2EDA32D96D12}
+		{AFD83968-7D60-491C-869A-4A28E0E8BD3A} = {147839A8-45C6-4EF7-A38A-4BC0377A8A9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC76E60F-2986-4FF8-A671-8BEEA60497FF}
