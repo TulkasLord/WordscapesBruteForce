@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> Deprecated AI/LLM <img width="16" height="16" alt="image" src="https://github.com/user-attachments/assets/e9d60a09-21f6-4079-9b40-53c50da36371" />
+   beat it!
+
 # Wordscapes Brute Force - A fun project!!
 Wordscapes Brute Force - (bot 🤖)
 
